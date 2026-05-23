@@ -1,267 +1,781 @@
-import React from "react";
-import { motion } from "framer-motion";
-import { Activity, Apple, Dumbbell, Brain, HeartPulse, Search, Smartphone, TrendingUp, Target, Sparkles } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2025-2026 건강·식품·피트니스 트렌드 종합 리포트</title>
 
-const krds = {
-  page: "min-h-screen bg-[#f8fafc] text-[#1e293b] antialiased",
-  container: "mx-auto max-w-7xl px-6",
-  sectionTitle: "text-[28px] font-extrabold tracking-[-0.02em] text-[#0f172a] md:text-[36px]",
-  body: "leading-8 text-[#475569]",
-  card: "rounded-[24px] border border-[#e2e8f0] bg-white shadow-[0_10px_30px_rgba(15,23,42,0.06)]",
-  pill: "inline-flex items-center gap-2 rounded-full border border-[#cbd5e1] bg-white px-4 py-2 text-sm font-bold text-[#334155]",
-};
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,400..800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
 
-const fontStyle = {
-  fontFamily:
-    "'Google Sans Flex', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif",
-};
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --text: #1e293b;
+      --title: #0f172a;
+      --muted: #475569;
+      --subtle: #64748b;
+      --line: #e2e8f0;
+      --blue: #2563eb;
+      --green: #047857;
+      --green-dark: #14532d;
+      --orange: #ea580c;
+      --yellow: #fde047;
+      --white: #ffffff;
+      --navy: #0f172a;
+    }
 
-const megaTrends = [
-  {
-    icon: HeartPulse,
-    title: "GLP-1 체중관리 패러다임",
-    label: "의학적 체중관리",
-    desc: "비만 치료제의 대중화로 체중 관리는 ‘의지와 운동’ 중심에서 약물·영양·운동이 결합된 관리형 시장으로 이동합니다.",
-    points: ["섭취량 20~30% 감소", "고단백·고영양 선호", "소용량 메뉴 확대"],
-  },
-  {
-    icon: Apple,
-    title: "헬시플레저 3.0",
-    label: "제로를 넘어 기능성",
-    desc: "맛있는 건강식과 제로 트렌드를 넘어, 수면·장 건강·혈당·피부 등 구체적 기능을 담은 식품이 부상합니다.",
-    points: ["혈당 케어", "수면·스트레스", "콜라겐·식이섬유"],
-  },
-  {
-    icon: Search,
-    title: "인텐트 기반 건기식",
-    label: "성분보다 목적",
-    desc: "소비자는 ‘유산균’ 같은 성분명보다 ‘수면 개선’, ‘식후 혈당’, ‘피로 회복’처럼 문제 해결 중심으로 탐색합니다.",
-    points: ["상황별 검색", "라이프스타일 맞춤", "콘텐츠 교육 중요"],
-  },
-  {
-    icon: Dumbbell,
-    title: "약물 + 피트니스 공존",
-    label: "근손실 방지 시장",
-    desc: "GLP-1 이후 운동의 역할은 단순 감량이 아니라 근육 보존, 기초대사 유지, 장기적 요요 방지로 재정의됩니다.",
-    points: ["근력 운동 수요", "홈 피트니스", "체성분 관리"],
-  },
-];
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-const stats = [
-  { value: "500억$", label: "2026 글로벌 비만 치료제 시장 전망", width: "88%" },
-  { value: "1,000만+", label: "국내 삼성헬스 월간 활성 사용자", width: "92%" },
-  { value: "+13.7%", label: "비빔밥류 섭취 빈도 성장", width: "70%" },
-  { value: "+8.2%", label: "덮밥류 섭취 빈도 성장", width: "58%" },
-  { value: "+7.0%", label: "국밥류 성장 흐름", width: "52%" },
-];
+    html {
+      scroll-behavior: smooth;
+    }
 
-const foodFormats = [
-  { name: "원보울", desc: "한 그릇에 영양 균형과 편리함을 담은 간편식", examples: "덮밥 · 비빔밥 · 국밥" },
-  { name: "원디쉬", desc: "젊은 층 선호도가 높은 서양식 건강 일품요리", examples: "파스타 · 샐러드팩" },
-  { name: "원핸드", desc: "이동 중에도 먹기 쉬운 고단백·프리미엄 포맷", examples: "샌드위치 · 랩 · 건강버거" },
-];
+    body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Google Sans Flex', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      word-break: keep-all;
+    }
 
-const strategies = [
-  { icon: Target, title: "F&B 전략", text: "저용량·고밀도 영양, 단백질 강화, 혼웰식 원보울 HMR, 친환경 패키징 중심으로 재편" },
-  { icon: Brain, title: "건기식 전략", text: "성분명보다 수면·혈당·피로·장 건강처럼 소비자의 문제 해결 키워드로 콘텐츠 설계" },
-  { icon: Smartphone, title: "디지털 헬스 전략", text: "웨어러블·앱·AI 식단 분석을 연결해 개인 맞춤형 건강관리 경험 제공" },
-  { icon: Activity, title: "피트니스 전략", text: "비만 약물 사용자 대상 근손실 방지 프로그램, 체성분 개선, 스마트 홈트 솔루션 강화" },
-];
+    :lang(ko) {
+      font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    }
 
-export default function HealthFoodFitnessTrendPage() {
-  return (
-    <>
-      <style>{`
-        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
-        @import url('https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,400..800&display=swap');
+    :lang(en),
+    .font-en,
+    .font-en * {
+      font-family: 'Google Sans Flex', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    }
 
-        :lang(ko) {
-          font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-        }
+    .container {
+      width: min(100% - 48px, 1280px);
+      margin: 0 auto;
+    }
 
-        :lang(en), .font-en, .font-en * {
-          font-family: 'Google Sans Flex', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-        }
-      `}</style>
-    <div className={krds.page} style={fontStyle} lang="ko">
-      <section className={`${krds.container} py-12 md:py-16`}>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          className="overflow-hidden rounded-[32px] border border-[#dbeafe] bg-white p-8 shadow-[0_20px_50px_rgba(15,23,42,0.08)] md:p-12"
-        >
-          <div className="grid gap-10 md:grid-cols-[1.2fr_0.8fr] md:items-center">
-            <div>
-              <div className={krds.pill}>
-                <Sparkles size={18} /> <span className="font-en" lang="en">2025-2026 Health · Food · Fitness Trend</span>
-              </div>
-              <h1 className="text-[38px] font-extrabold leading-tight tracking-[-0.035em] text-[#0f172a] md:text-[64px]">
-                건강·식품·피트니스 시장의
-                <span className="block text-[#2563eb]">
-                  구조적 전환 리포트
-                </span>
-              </h1>
-              <p className={`mt-6 max-w-2xl text-lg ${krds.body}`}>
-                GLP-1, 헬시플레저 3.0, 목적형 건기식 검색, AI 헬스케어가 결합되며
-                건강 산업은 단순 제품 판매에서 개인 맞춤형 라이프스타일 솔루션으로 이동하고 있습니다.
-              </p>
+    .section {
+      padding-bottom: 48px;
+    }
+
+    .hero-section {
+      padding-top: 48px;
+      padding-bottom: 64px;
+    }
+
+    .hero-card {
+      overflow: hidden;
+      border: 1px solid #dbeafe;
+      border-radius: 32px;
+      background: var(--white);
+      padding: 48px;
+      box-shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
+      animation: fadeUp 0.7s ease both;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid #cbd5e1;
+      border-radius: 999px;
+      background: var(--white);
+      padding: 8px 16px;
+      color: #334155;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .hero-title {
+      margin-top: 20px;
+      color: var(--title);
+      font-size: clamp(38px, 5vw, 64px);
+      font-weight: 900;
+      line-height: 1.08;
+      letter-spacing: -0.035em;
+    }
+
+    .hero-title span {
+      display: block;
+      color: var(--blue);
+    }
+
+    .hero-desc {
+      max-width: 720px;
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.8;
+    }
+
+    .summary-box {
+      border-radius: 28px;
+      background: var(--green-dark);
+      padding: 24px;
+      color: var(--white);
+      box-shadow: 0 20px 45px rgba(20, 83, 45, 0.24);
+    }
+
+    .summary-label {
+      font-size: 14px;
+      font-weight: 700;
+      opacity: 0.9;
+    }
+
+    .summary-title {
+      margin-top: 16px;
+      font-size: 30px;
+      font-weight: 900;
+      line-height: 1.35;
+    }
+
+    .summary-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 32px;
+      text-align: center;
+    }
+
+    .summary-stat {
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 12px;
+    }
+
+    .summary-stat strong {
+      display: block;
+      font-size: 24px;
+      font-weight: 900;
+    }
+
+    .summary-stat span {
+      display: block;
+      margin-top: 4px;
+      font-size: 12px;
+      opacity: 0.9;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .section-icon {
+      color: var(--green);
+      font-size: 26px;
+    }
+
+    .section-title {
+      color: var(--title);
+      font-size: clamp(28px, 3vw, 36px);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+    }
+
+    .trend-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: var(--white);
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+    }
+
+    .trend-card {
+      height: 100%;
+      padding: 24px;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      animation: fadeUp 0.7s ease both;
+    }
+
+    .trend-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.1);
+    }
+
+    .icon-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 56px;
+      height: 56px;
+      margin-bottom: 20px;
+      border-radius: 16px;
+      background: #ecfdf5;
+      color: var(--green);
+      font-size: 28px;
+    }
+
+    .trend-label {
+      margin-bottom: 8px;
+      color: var(--orange);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .trend-title {
+      color: var(--title);
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+    }
+
+    .trend-desc {
+      min-height: 168px;
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    .chip-list {
+      display: grid;
+      gap: 8px;
+      margin-top: 20px;
+    }
+
+    .chip {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--bg);
+      padding: 8px 12px;
+      color: #334155;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .data-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 24px;
+    }
+
+    .data-card,
+    .dark-card,
+    .format-card,
+    .strategy-card {
+      padding: 28px;
+    }
+
+    .card-title {
+      color: var(--title);
+      font-size: 24px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+    }
+
+    .card-subtitle {
+      margin-top: 8px;
+      color: var(--subtle);
+      line-height: 1.6;
+    }
+
+    .bar-list {
+      display: grid;
+      gap: 20px;
+      margin-top: 28px;
+    }
+
+    .bar-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .bar-value {
+      color: var(--green);
+      font-size: 24px;
+      font-weight: 900;
+    }
+
+    .bar-label {
+      color: var(--subtle);
+      font-size: 14px;
+      font-weight: 700;
+      text-align: right;
+    }
+
+    .bar-track {
+      height: 12px;
+      border-radius: 999px;
+      background: var(--line);
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 12px;
+      border-radius: 999px;
+      background: var(--blue);
+    }
+
+    .dark-card {
+      border: 1px solid #1e293b;
+      border-radius: 24px;
+      background: var(--navy);
+      color: var(--white);
+      box-shadow: 0 15px 40px rgba(15, 23, 42, 0.18);
+    }
+
+    .dark-card .card-title {
+      color: var(--white);
+    }
+
+    .dark-card .card-subtitle {
+      color: #cbd5e1;
+    }
+
+    .flow-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 32px;
+    }
+
+    .flow-item {
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+    }
+
+    .flow-step {
+      color: var(--yellow);
+      font-size: 40px;
+      font-weight: 900;
+    }
+
+    .flow-title {
+      margin-top: 16px;
+      font-size: 18px;
+      font-weight: 900;
+    }
+
+    .flow-desc {
+      margin-top: 8px;
+      color: #cbd5e1;
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    .format-wrap {
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .format-desc {
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.8;
+    }
+
+    .format-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .format-item {
+      border: 1px solid #dbeafe;
+      border-radius: 24px;
+      background: var(--bg);
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
+    }
+
+    .format-name {
+      color: var(--green);
+      font-size: 24px;
+      font-weight: 900;
+    }
+
+    .format-text {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    .format-examples {
+      display: inline-block;
+      margin-top: 16px;
+      border: 1px solid #fed7aa;
+      border-radius: 999px;
+      background: var(--white);
+      padding: 8px 12px;
+      color: var(--orange);
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .strategy-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .strategy-card {
+      height: 100%;
+    }
+
+    .strategy-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      margin-bottom: 20px;
+      border-radius: 16px;
+      background: #fff7ed;
+      color: var(--orange);
+      font-size: 24px;
+    }
+
+    .strategy-title {
+      color: var(--title);
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+    }
+
+    .strategy-text {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.75;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 1100px) {
+      .hero-grid,
+      .data-grid,
+      .format-wrap {
+        grid-template-columns: 1fr;
+      }
+
+      .trend-grid,
+      .strategy-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .trend-desc {
+        min-height: auto;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .container {
+        width: min(100% - 32px, 1280px);
+      }
+
+      .hero-section {
+        padding-top: 32px;
+        padding-bottom: 48px;
+      }
+
+      .hero-card {
+        padding: 28px;
+      }
+
+      .summary-stats,
+      .trend-grid,
+      .flow-grid,
+      .format-grid,
+      .strategy-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .bar-head {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .bar-label {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+
+<body lang="ko">
+  <main>
+    <section class="hero-section container">
+      <div class="hero-card">
+        <div class="hero-grid">
+          <div>
+            <div class="pill">
+              <span>✦</span>
+              <span class="font-en" lang="en">2025-2026 Health · Food · Fitness Trend</span>
             </div>
 
-            <div className="rounded-[28px] bg-[#14532d] p-6 text-white shadow-[0_20px_45px_rgba(20,83,45,0.24)]">
-              <p className="text-sm font-semibold opacity-90">핵심 한 줄 요약</p>
-              <p className="mt-4 text-3xl font-black leading-snug">
-                적게 먹고, 더 똑똑하게 고르고, 데이터로 관리하는 시대
-              </p>
-              <div className="mt-8 grid grid-cols-3 gap-3 text-center">
-                <div className="rounded-2xl border border-white/20 bg-white/15 p-3">
-                  <p className="text-2xl font-black">4</p>
-                  <p className="text-xs opacity-90">메가트렌드</p>
-                </div>
-                <div className="rounded-2xl border border-white/20 bg-white/15 p-3">
-                  <p className="text-2xl font-black">3.0</p>
-                  <p className="text-xs opacity-90">헬시플레저</p>
-                </div>
-                <div className="rounded-2xl border border-white/20 bg-white/15 p-3">
-                  <p className="font-en text-2xl font-black" lang="en">AI</p>
-                  <p className="text-xs opacity-90">개인맞춤</p>
-                </div>
+            <h1 class="hero-title">
+              건강·식품·피트니스 시장의
+              <span>구조적 전환 리포트</span>
+            </h1>
+
+            <p class="hero-desc">
+              GLP-1, 헬시플레저 3.0, 목적형 건기식 검색, AI 헬스케어가 결합되며
+              건강 산업은 단순 제품 판매에서 개인 맞춤형 라이프스타일 솔루션으로 이동하고 있습니다.
+            </p>
+          </div>
+
+          <div class="summary-box">
+            <p class="summary-label">핵심 한 줄 요약</p>
+            <p class="summary-title">적게 먹고, 더 똑똑하게 고르고, 데이터로 관리하는 시대</p>
+
+            <div class="summary-stats">
+              <div class="summary-stat">
+                <strong>4</strong>
+                <span>메가트렌드</span>
+              </div>
+              <div class="summary-stat">
+                <strong>3.0</strong>
+                <span>헬시플레저</span>
+              </div>
+              <div class="summary-stat">
+                <strong class="font-en" lang="en">AI</strong>
+                <span>개인맞춤</span>
               </div>
             </div>
           </div>
-        </motion.div>
-      </section>
-
-      <section className={`${krds.container} pb-12`}>
-        <div className="mb-7 flex items-center gap-3">
-          <TrendingUp className="text-emerald-600" />
-          <h2 className={krds.sectionTitle}>4대 메가 트렌드</h2>
         </div>
+      </div>
+    </section>
 
-        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-          {megaTrends.map((trend, index) => {
-            const Icon = trend.icon;
-            return (
-              <motion.div
-                key={trend.title}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.08 }}
-              >
-                <Card className={`${krds.card} h-full transition hover:-translate-y-1 hover:shadow-[0_18px_45px_rgba(15,23,42,0.10)]`}>
-                  <CardContent className="p-6">
-                    <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#ecfdf5]">
-                      <Icon className="text-[#047857]" size={28} />
-                    </div>
-                    <p className="mb-2 text-xs font-extrabold uppercase tracking-wider text-[#ea580c]">{trend.label}</p>
-                    <h3 className="text-xl font-extrabold tracking-[-0.02em] text-[#0f172a]">{trend.title}</h3>
-                    <p className="mt-3 min-h-28 text-sm leading-6 text-[#475569]">{trend.desc}</p>
-                    <div className="mt-5 space-y-2">
-                      {trend.points.map((point) => (
-                        <div key={point} className="rounded-full border border-[#e2e8f0] bg-[#f8fafc] px-3 py-2 text-sm font-semibold text-[#334155]">
-                          {point}
-                        </div>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            );
-          })}
-        </div>
-      </section>
+    <section class="section container">
+      <div class="section-head">
+        <span class="section-icon">↗</span>
+        <h2 class="section-title">4대 메가 트렌드</h2>
+      </div>
 
-      <section className={`${krds.container} grid gap-6 pb-12 lg:grid-cols-[0.9fr_1.1fr]`}>
-        <Card className={krds.card}>
-          <CardContent className="p-7">
-            <h2 className="text-2xl font-extrabold tracking-[-0.02em] text-[#0f172a]">핵심 데이터 스냅샷</h2>
-            <p className="mt-2 text-[#64748b]">리포트에서 눈에 띄는 시장 변화 수치</p>
-            <div className="mt-7 space-y-5">
-              {stats.map((item) => (
-                <div key={item.label}>
-                  <div className="mb-2 flex items-end justify-between gap-3">
-                    <p className="text-2xl font-extrabold text-[#047857]">{item.value}</p>
-                    <p className="text-right text-sm font-semibold text-[#64748b]">{item.label}</p>
-                  </div>
-                  <div className="h-3 rounded-full bg-[#e2e8f0]">
-                    <div className="h-3 rounded-full bg-[#2563eb]" style={{ width: item.width }} />
-                  </div>
-                </div>
-              ))}
+      <div class="trend-grid">
+        <article class="card trend-card">
+          <div class="icon-box">♡</div>
+          <p class="trend-label">의학적 체중관리</p>
+          <h3 class="trend-title">GLP-1 체중관리 패러다임</h3>
+          <p class="trend-desc">비만 치료제의 대중화로 체중 관리는 ‘의지와 운동’ 중심에서 약물·영양·운동이 결합된 관리형 시장으로 이동합니다.</p>
+          <div class="chip-list">
+            <span class="chip">섭취량 20~30% 감소</span>
+            <span class="chip">고단백·고영양 선호</span>
+            <span class="chip">소용량 메뉴 확대</span>
+          </div>
+        </article>
+
+        <article class="card trend-card">
+          <div class="icon-box">●</div>
+          <p class="trend-label">제로를 넘어 기능성</p>
+          <h3 class="trend-title">헬시플레저 3.0</h3>
+          <p class="trend-desc">맛있는 건강식과 제로 트렌드를 넘어, 수면·장 건강·혈당·피부 등 구체적 기능을 담은 식품이 부상합니다.</p>
+          <div class="chip-list">
+            <span class="chip">혈당 케어</span>
+            <span class="chip">수면·스트레스</span>
+            <span class="chip">콜라겐·식이섬유</span>
+          </div>
+        </article>
+
+        <article class="card trend-card">
+          <div class="icon-box">⌕</div>
+          <p class="trend-label">성분보다 목적</p>
+          <h3 class="trend-title">인텐트 기반 건기식</h3>
+          <p class="trend-desc">소비자는 ‘유산균’ 같은 성분명보다 ‘수면 개선’, ‘식후 혈당’, ‘피로 회복’처럼 문제 해결 중심으로 탐색합니다.</p>
+          <div class="chip-list">
+            <span class="chip">상황별 검색</span>
+            <span class="chip">라이프스타일 맞춤</span>
+            <span class="chip">콘텐츠 교육 중요</span>
+          </div>
+        </article>
+
+        <article class="card trend-card">
+          <div class="icon-box">▲</div>
+          <p class="trend-label">근손실 방지 시장</p>
+          <h3 class="trend-title">약물 + 피트니스 공존</h3>
+          <p class="trend-desc">GLP-1 이후 운동의 역할은 단순 감량이 아니라 근육 보존, 기초대사 유지, 장기적 요요 방지로 재정의됩니다.</p>
+          <div class="chip-list">
+            <span class="chip">근력 운동 수요</span>
+            <span class="chip">홈 피트니스</span>
+            <span class="chip">체성분 관리</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section container data-grid">
+      <article class="card data-card">
+        <h2 class="card-title">핵심 데이터 스냅샷</h2>
+        <p class="card-subtitle">리포트에서 눈에 띄는 시장 변화 수치</p>
+
+        <div class="bar-list">
+          <div>
+            <div class="bar-head">
+              <p class="bar-value">500억$</p>
+              <p class="bar-label">2026 글로벌 비만 치료제 시장 전망</p>
             </div>
-          </CardContent>
-        </Card>
+            <div class="bar-track"><div class="bar-fill" style="width: 88%;"></div></div>
+          </div>
 
-        <Card className="rounded-[24px] border border-[#1e293b] bg-[#0f172a] text-white shadow-[0_15px_40px_rgba(15,23,42,0.18)]">
-          <CardContent className="p-7">
-            <h2 className="text-2xl font-extrabold tracking-[-0.02em]">헬시플레저 진화 흐름</h2>
-            <p className="mt-2 text-slate-300">건강식품은 ‘참는 다이어트’에서 ‘기능을 즐기는 소비’로 진화합니다.</p>
-            <div className="mt-8 grid gap-4 md:grid-cols-3">
-              {[
-                ["1.0", "맛있는 건강식", "닭가슴살·건강 도시락"],
-                ["2.0", "제로·무첨가", "제로슈거·저칼로리"],
-                ["3.0", "적극적 기능성", "혈당·수면·장건강·뷰티"],
-              ].map(([step, title, desc]) => (
-                <div key={step} className="rounded-3xl bg-white/10 p-5">
-                  <p className="text-4xl font-extrabold text-[#fde047]">{step}</p>
-                  <h3 className="mt-4 text-lg font-extrabold">{title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-slate-300">{desc}</p>
-                </div>
-              ))}
+          <div>
+            <div class="bar-head">
+              <p class="bar-value">1,000만+</p>
+              <p class="bar-label">국내 삼성헬스 월간 활성 사용자</p>
             </div>
-          </CardContent>
-        </Card>
-      </section>
+            <div class="bar-track"><div class="bar-fill" style="width: 92%;"></div></div>
+          </div>
 
-      <section className={`${krds.container} pb-12`}>
-        <Card className={krds.card}>
-          <CardContent className="p-7 md:p-9">
-            <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
-              <div>
-                <h2 className={krds.sectionTitle}>혼웰식 포맷 지도</h2>
-                <p className="mt-4 text-lg leading-8 text-[#475569]">
-                  1인 가구와 혼밥 문화는 단순한 간편식에서 벗어나 건강·프리미엄·편리함을 결합한
-                  ‘혼웰식’으로 확장되고 있습니다.
-                </p>
-              </div>
-              <div className="grid gap-4 md:grid-cols-3">
-                {foodFormats.map((format) => (
-                  <div key={format.name} className="rounded-3xl border border-[#dbeafe] bg-[#f8fafc] p-5 shadow-sm">
-                    <h3 className="text-2xl font-extrabold text-[#047857]">{format.name}</h3>
-                    <p className="mt-3 text-sm leading-6 text-[#475569]">{format.desc}</p>
-                    <p className="mt-4 rounded-full border border-[#fed7aa] bg-white px-3 py-2 text-sm font-bold text-[#ea580c]">{format.examples}</p>
-                  </div>
-                ))}
-              </div>
+          <div>
+            <div class="bar-head">
+              <p class="bar-value">+13.7%</p>
+              <p class="bar-label">비빔밥류 섭취 빈도 성장</p>
             </div>
-          </CardContent>
-        </Card>
-      </section>
+            <div class="bar-track"><div class="bar-fill" style="width: 70%;"></div></div>
+          </div>
 
-      <section className="mx-auto max-w-7xl px-6 pb-16">
-        <div className="mb-7 flex items-center gap-3">
-          <Target className="text-orange-500" />
-          <h2 className={krds.sectionTitle}>산업별 실행 전략</h2>
+          <div>
+            <div class="bar-head">
+              <p class="bar-value">+8.2%</p>
+              <p class="bar-label">덮밥류 섭취 빈도 성장</p>
+            </div>
+            <div class="bar-track"><div class="bar-fill" style="width: 58%;"></div></div>
+          </div>
+
+          <div>
+            <div class="bar-head">
+              <p class="bar-value">+7.0%</p>
+              <p class="bar-label">국밥류 성장 흐름</p>
+            </div>
+            <div class="bar-track"><div class="bar-fill" style="width: 52%;"></div></div>
+          </div>
         </div>
-        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
-          {strategies.map((strategy) => {
-            const Icon = strategy.icon;
-            return (
-              <Card key={strategy.title} className={krds.card}>
-                <CardContent className="p-6">
-                  <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#fff7ed]">
-                    <Icon className="text-[#ea580c]" />
-                  </div>
-                  <h3 className="text-xl font-extrabold tracking-[-0.02em] text-[#0f172a]">{strategy.title}</h3>
-                  <p className="mt-3 text-sm leading-7 text-[#475569]">{strategy.text}</p>
-                </CardContent>
-              </Card>
-            );
-          })}
+      </article>
+
+      <article class="dark-card">
+        <h2 class="card-title">헬시플레저 진화 흐름</h2>
+        <p class="card-subtitle">건강식품은 ‘참는 다이어트’에서 ‘기능을 즐기는 소비’로 진화합니다.</p>
+
+        <div class="flow-grid">
+          <div class="flow-item">
+            <p class="flow-step">1.0</p>
+            <h3 class="flow-title">맛있는 건강식</h3>
+            <p class="flow-desc">닭가슴살·건강 도시락</p>
+          </div>
+
+          <div class="flow-item">
+            <p class="flow-step">2.0</p>
+            <h3 class="flow-title">제로·무첨가</h3>
+            <p class="flow-desc">제로슈거·저칼로리</p>
+          </div>
+
+          <div class="flow-item">
+            <p class="flow-step">3.0</p>
+            <h3 class="flow-title">적극적 기능성</h3>
+            <p class="flow-desc">혈당·수면·장건강·뷰티</p>
+          </div>
         </div>
-      </section>
-    </div>
-    </>
-  );
-}
+      </article>
+    </section>
+
+    <section class="section container">
+      <article class="card format-card">
+        <div class="format-wrap">
+          <div>
+            <h2 class="section-title">혼웰식 포맷 지도</h2>
+            <p class="format-desc">
+              1인 가구와 혼밥 문화는 단순한 간편식에서 벗어나 건강·프리미엄·편리함을 결합한
+              ‘혼웰식’으로 확장되고 있습니다.
+            </p>
+          </div>
+
+          <div class="format-grid">
+            <div class="format-item">
+              <h3 class="format-name">원보울</h3>
+              <p class="format-text">한 그릇에 영양 균형과 편리함을 담은 간편식</p>
+              <span class="format-examples">덮밥 · 비빔밥 · 국밥</span>
+            </div>
+
+            <div class="format-item">
+              <h3 class="format-name">원디쉬</h3>
+              <p class="format-text">젊은 층 선호도가 높은 서양식 건강 일품요리</p>
+              <span class="format-examples">파스타 · 샐러드팩</span>
+            </div>
+
+            <div class="format-item">
+              <h3 class="format-name">원핸드</h3>
+              <p class="format-text">이동 중에도 먹기 쉬운 고단백·프리미엄 포맷</p>
+              <span class="format-examples">샌드위치 · 랩 · 건강버거</span>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="section container">
+      <div class="section-head">
+        <span class="section-icon" style="color: var(--orange);">◎</span>
+        <h2 class="section-title">산업별 실행 전략</h2>
+      </div>
+
+      <div class="strategy-grid">
+        <article class="card strategy-card">
+          <div class="strategy-icon">◎</div>
+          <h3 class="strategy-title">F&amp;B 전략</h3>
+          <p class="strategy-text">저용량·고밀도 영양, 단백질 강화, 혼웰식 원보울 HMR, 친환경 패키징 중심으로 재편</p>
+        </article>
+
+        <article class="card strategy-card">
+          <div class="strategy-icon">◐</div>
+          <h3 class="strategy-title">건기식 전략</h3>
+          <p class="strategy-text">성분명보다 수면·혈당·피로·장 건강처럼 소비자의 문제 해결 키워드로 콘텐츠 설계</p>
+        </article>
+
+        <article class="card strategy-card">
+          <div class="strategy-icon">▣</div>
+          <h3 class="strategy-title">디지털 헬스 전략</h3>
+          <p class="strategy-text">웨어러블·앱·AI 식단 분석을 연결해 개인 맞춤형 건강관리 경험 제공</p>
+        </article>
+
+        <article class="card strategy-card">
+          <div class="strategy-icon">▲</div>
+          <h3 class="strategy-title">피트니스 전략</h3>
+          <p class="strategy-text">비만 약물 사용자 대상 근손실 방지 프로그램, 체성분 개선, 스마트 홈트 솔루션 강화</p>
+        </article>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
